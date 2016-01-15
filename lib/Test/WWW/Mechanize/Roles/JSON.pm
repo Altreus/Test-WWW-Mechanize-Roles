@@ -6,10 +6,9 @@ use Test::WWW::Mechanize::JSON () ;
 use Moose::Role;
 
 BEGIN {
-    my $stash = Package::Stash->new(__PACKAGE__);
     my $them = Package::Stash->new('Test::WWW::Mechanize::JSON');
     for ($them->list_all_symbols('CODE')) {
-        $stash->add_symbol( '&' . $_, $them->get_symbol( '&' . $_ ) )
+        __PACKAGE__->meta->add_method( $_ => $them->get_symbol( '&' . $_ ) )
     }
 }
 
